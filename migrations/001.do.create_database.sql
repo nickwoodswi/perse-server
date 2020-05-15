@@ -48,10 +48,10 @@ CREATE TABLE wkt_ex_join (
 );
 
 /* /assignments */
-CREATE TABLE workout_assignments (
+CREATE TABLE assignments (
     id VARCHAR NOT NULL,
     date_assigned DATE NOT NULL, /*date on which coach assigned the workout*/
     perform_on_date DATE NOT NULL, /*date on which the athlete is to perform the workout*/
     athlete_id INTEGER NOT NULL, /*references table 'athletes' - generates name*/
-    workout_id INTEGER NOT NULL /*references table 'workouts' - generates workout name, exercises*/
+    workouts_id INTEGER NOT NULL /*references table 'workouts' - generates workout name, exercises*/
 )

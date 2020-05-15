@@ -110,7 +110,7 @@ const PerseService = {
     // set_num INTEGER, /*number of times the set is performed*/
     // order INTEGER NOT NULL /*place this exercise appears in the set*/
 
-  insertExercise(knex) {
+  insertExercise(knex, newExercise) {
     return knex
       .insert(newExercise)
       .into('exercises')
