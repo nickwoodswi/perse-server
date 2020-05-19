@@ -12,6 +12,9 @@
     "migrate": "postgrator --config postgrator-config.js"
   },
   "keywords": [],
+  "engines": {
+    "node": "12.14.0"
+  },
   "author": "",
   "license": "ISC",
   "dependencies": {
@@ -23,6 +26,7 @@
     "morgan": "^1.10.0",
     "pg": "^8.2.0",
     "postgrator": "^4.0.0",
+    "react-test-renderer": "^16.13.1",
     "xss": "^1.0.6"
   },
   "devDependencies": {

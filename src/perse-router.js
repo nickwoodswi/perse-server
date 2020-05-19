@@ -7,33 +7,33 @@ const perseRouter = express.Router()
 const jsonParser = express.json()
 
 const serializeAthlete = athlete => ({
-  id: xss(athlete.id),
+  athletes_id: xss(athlete.athletes_id),
   first_name: xss(athlete.first_name),
   last_name: xss(athlete.last_name)
 })
 
 const serializeExerciseType = type => ({
-    id: xss(type.id),
-    exercise_name: xss(type.exercise_name)
-})
-
-const serializeExercise = exercise => ({
-    id: xss(exercise.id),
-    exercise_type: xss(exercise.exercise_type),
-    rep_type: xss(exercise.rep_type),
-    reps: xss(exercise.reps),
-    resistance: xss(exercise.weight),
-    sub_distance: xss(exercise.sub_distance),
-    tempo: xss(exercise.tempo_time),
-    subrest: xss(exercise.subrest_time),
-    rest: xss(exercise.rest_time), 
-    sets: xss(exercise.set_num), 
-    order: xss(exercise.order)
+    exercise_types_id: xss(type.exercise_types_id),
+    exercise_types_name: xss(type.exercise_types_name)
 })
 
 const serializeWorkout = workout => ({
-    id: xss(workout.id),
-    workout_name: xss(workout.workout_name)
+  workouts_id: xss(workout.workouts_id),
+  workouts_name: xss(workout.workouts_name)
+})
+
+const serializeExercise = exercise => ({
+    exercises_id: xss(exercise.exercises_id),
+    exercise_types_id: xss(exercise.exercise_types_id),
+    rep_type: xss(exercise.rep_type),
+    reps: xss(exercise.reps),
+    resistance: xss(exercise.resistance),
+    sub_distance: xss(exercise.sub_distance),
+    tempo: xss(exercise.tempo_time),
+    subrest: xss(exercise.subrest),
+    rest: xss(exercise.rest), 
+    set_num: xss(exercise.set_num), 
+    set_order: xss(exercise.set_order)
 })
 
 const serializeJoinEntry = entry => ({
@@ -46,8 +46,8 @@ const serializeAssignment = assignment => ({
     id: xss(assignment.id),
     date_assigned: xss(assignment.date_assigned),
     perform_on_date: xss(assignment.perform_on_date),
-    athlete_id: xss(assignment.athlete_id),
-    workout_id: xss(assignment.workout_id)
+    athletes_id: xss(assignment.athletes_id),
+    workouts_id: xss(assignment.workouts_id)
 })
 
 perseRouter
@@ -62,8 +62,8 @@ perseRouter
   })
   .post(jsonParser, (req, res, next) => {
       const knexInstance = req.app.get('db')
-      const { id, date_assigned, perform_on_date, athlete_id, workouts_id } = req.body
-      const newAssignment = { id, date_assigned, perform_on_date, athlete_id, workouts_id }
+      const { id, date_assigned, perform_on_date, athletes_id, workouts_id } = req.body
+      const newAssignment = { id, date_assigned, perform_on_date, athletes_id, workouts_id }
       PerseService.insertAssignment(knexInstance, newAssignment)
         .then(assignment => {
             res
@@ -88,7 +88,7 @@ perseRouter
     const knexInstance = req.app.get('db')
     const { id, workouts_id, exercises_id } = req.body
     const newEntry = { id, workouts_id, exercises_id }
-    PerseService.insertJoinEntry(knexInstance, newEntry)
+    PerseService.insertJoinEntries(knexInstance, newEntry)
       .then(entry => {
         res
           .status(201)
@@ -110,8 +110,8 @@ perseRouter
   })
   .post(jsonParser, (req, res, next) => {
     const knexInstance = req.app.get('db')
-    const { id, athlete_name } = req.body
-    const newAthlete = { id, athlete_name }
+    const { athletes_id, first_name, last_name } = req.body
+    const newAthlete = { athletes_id, first_name, last_name }
 
     PerseService.insertAthlete(knexInstance, newAthlete)
         .then(athlete => {
@@ -124,7 +124,7 @@ perseRouter
     })
 
 perseRouter
-    .route('/exercise_types')
+    .route('/exercise-types')
     .get((req, res, next) => {
         const knexInstance = req.app.get('db')
         PerseService.getAllExerciseTypes(knexInstance)
@@ -135,8 +135,8 @@ perseRouter
     })
     .post(jsonParser, (req, res, next) => {
         const knexInstance = req.app.get('db')
-        const { id, exercise_name } = req.body
-        const newExerciseType = { id, exercise_name }
+        const { exercise_types_id, exercise_types_name } = req.body
+        const newExerciseType = { exercise_types_id, exercise_types_name }
 
         PerseService.insertExerciseType(knexInstance, newExerciseType)
             .then(type => {
@@ -154,14 +154,15 @@ perseRouter
       const knexInstance = req.app.get('db')
       PerseService.getAllExercises(knexInstance) 
       .then(exercises => {
+        console.log(exercises)
         res.json(exercises.map(serializeExercise))
       })
       .catch(next)
     })
     .post(jsonParser, (req, res, next) => {
       const knexInstance = req.app.get('db')
-      const { id, exercise_type, rep_type, reps, resistance, sub_distance, tempo, subrest, rest, set_num, order } = req.body
-      const newExercise = { id, exercise_type, rep_type, reps, resistance, sub_distance, tempo, subrest, rest, set_num, order }
+      const { exercises_id, exercise_types_id, rep_type, reps, resistance, sub_distance, tempo, subrest, rest, set_num, set_order } = req.body
+      const newExercise = { exercises_id, exercise_types_id, rep_type, reps, resistance, sub_distance, tempo, subrest, rest, set_num, set_order }
     
       PerseService.insertExercise(knexInstance, newExercise)
         .then(exercise => {
@@ -185,8 +186,8 @@ perseRouter
     })
     .post(jsonParser, (req, res, next) => {
       const knexInstance = req.app.get('db')
-      const { id, workout_name } = req.body
-      const newWorkout = { id, workout_name }
+      const { workouts_id, workouts_name } = req.body
+      const newWorkout = { workouts_id, workouts_name }
 
       PerseService.insertWorkout(knexInstance, newWorkout)
         .then(workout => {
