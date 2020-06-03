@@ -1,26 +1,67 @@
-# Express Boilerplate!
+![PERSE Screen Shot](https://github.com/nickwoodswi/perse/blob/master/src/images/ScreenShot.png)
 
-This is a boilerplate project used for starting new projects!
+PERSE is a simple workout assignment and editor app for coaches, personal trainers, and athletes. Select workouts from those already in the database, and assign them to an existing athlete (or create a new athlete) on a single date or over a date range, with options to select recurrance every day, every other day, every third day, or every week.
 
-## Set up
+Create new exercises from scratch by naming a new exercise type and setting intensity by rep type, weight, distance, rest, and tempo, or select from existing exercise types already in the system. Then, either add them to an existing workout, or build a new workout from scratch before assigning. 
 
-Complete the following steps to start a new project (NEW-PROJECT-NAME):
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app). It also makes use of Express, PostgreSQL, and Node.js. It was deployed to Vercel, and Heroku.
 
-1. Clone this repository to your local machine `git clone BOILERPLATE-URL NEW-PROJECTS-NAME`
-2. `cd` into the cloned repository
-3. Make a fresh start of the git history for this project with `rm -rf .git && git init`
-4. Install the node dependencies `npm install`
-5. Move the example Environment file to `.env` that will be ignored by git and read by the express server `mv example.env .env`
-6. Edit the contents of the `package.json` to use NEW-PROJECT-NAME instead of `"name": "express-boilerplate",`
+## DEMO: https://perse.now.sh/
 
-## Scripts
+## API Summary
 
-Start the application `npm start`
+PERSE uses a simple RESTful API architecture supporting GET and POST operations, with a data structure according to the following endpoints:
 
-Start nodemon for the application `npm run dev`
+  /assignments
+    {
+      id,
+      date_assigned,
+      perform_on_date,
+      athletes_id,
+      workouts_id
+    }
 
-Run the tests `npm test`
+  /athletes
+    {
+      athletes_id,
+      first_name,
+      last_name
+    }
 
-## Deploying
+  /exercise-types
+    {
+      exercise_types_id,
+      exercise_types_name
+    }
 
-When your new project is ready for deployment, add a new Heroku application with `heroku create`. This will make a new git remote called "heroku" and you can then `npm run deploy` which will push to this remote's master branch.
+  /exercises
+    {
+      exercises_id,
+      exercise_types_id,
+      rep_type,
+      reps,
+      resistance,
+      sub_distance,
+      tempo,
+      subrest,
+      rest,
+      set_name,
+      set_order
+    }
+
+  /assignments
+    {
+      id,
+      date_assigned,
+      perform_on_date,
+      athletes_id,
+      workouts_id
+    }
+
+  /join
+    {
+      id,
+      workouts_id,
+      exercises_id
+    }
+
