@@ -1,4 +1,4 @@
-## PERSE - Workout Assigner & Builder
+PERSE
 
 ![PERSE Screen Shot](https://github.com/nickwoodswi/perse/blob/master/src/images/ScreenShot.png)
 
