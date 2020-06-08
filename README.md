@@ -1,3 +1,5 @@
+## PERSE - Workout Assigner & Builder: https://perse.now.sh/
+
 ![PERSE Screen Shot](https://github.com/nickwoodswi/perse/blob/master/src/images/ScreenShot.png)
 
 PERSE is a simple workout assignment and editor app for coaches, personal trainers, and athletes. Select workouts from those already in the database, and assign them to an existing athlete (or create a new athlete) on a single date or over a date range, with options to select recurrance every day, every other day, every third day, or every week.
